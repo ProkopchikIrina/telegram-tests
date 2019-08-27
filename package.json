@@ -1,0 +1,19 @@
+{
+  "name": "itunes-tests",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "irina.prokopchik",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@types/jasmine": "2.8.16",
+    "jasmine-core": "2.99.1",
+    "protractor": "5.4.2",
+    "ts-node": "^8.3.0",
+    "typescript": "3.4.5"
+  }
+}
