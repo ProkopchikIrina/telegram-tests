@@ -1,30 +1,17 @@
-import {$, browser, by, element, ExpectedConditions} from 'protractor';
+import { $, browser, by, element } from 'protractor';
 
 export class LoginPagePo {
     private loginPageContent = $('.login_page');
-    private accountNameInput = $('.account-name input');
     private countryInput = $('.login_phone_country_input_group div');
     private countryCodeInput = element(by.name('phone_country'));
 
     async loadLoginPage() {
-        await browser.get('https://web.telegram.org');
+        await browser.get(browser.baseUrl);
         return browser.waitForAngularEnabled(false);
     }
 
     isLoginPageContentDisplayed() {
         return this.loginPageContent.isDisplayed();
-    }
-
-    waitAccountNameInput() {
-        return  browser.wait(ExpectedConditions.visibilityOf(this.accountNameInput), 10000);
-    }
-
-    fillAccountNameInput(value: string) {
-        return this.accountNameInput.sendKeys(value);
-    }
-
-    clickCountryCodeInput() {
-        return this.countryCodeInput.click();
     }
 
     async fillCountryCodeInput(value: string) {
@@ -47,5 +34,4 @@ export class LoginPagePo {
     getCountryCodeInputValue() {
         return this.countryCodeInput.getAttribute('value');
     }
-
 }

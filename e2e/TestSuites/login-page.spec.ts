@@ -1,17 +1,16 @@
 import { LoginPagePo } from '../PO/login-page.po';
 import { CountriesModalPo } from '../PO/countries-modal.po';
-import {browser} from "protractor";
 
-fdescribe('[LOGIN_PAGE]', () => {
+describe('[LOGIN_PAGE]', () => {
     let loginPage: LoginPagePo,
         countriesModal: CountriesModalPo;
 
-    beforeAll(async() => {
+    beforeAll(() => {
         loginPage = new LoginPagePo();
         countriesModal = new CountriesModalPo();
     });
 
-    describe('[LOGIN_PAGE]', () => {
+    describe('[LOGIN_PAGE] Change country code', () => {
         it('[LOGIN_PAGE] Login page is loaded', async() => {
             await loginPage.loadLoginPage();
             expect(await loginPage.isLoginPageContentDisplayed()).toBeTruthy();
@@ -37,7 +36,7 @@ fdescribe('[LOGIN_PAGE]', () => {
         });
     });
 
-    fdescribe('[LOGIN_PAGE]', () => {
+    describe('[LOGIN_PAGE] Select country using "countries" modal', () => {
         it('[LOGIN_PAGE] Login page is loaded', async() => {
             await loginPage.loadLoginPage();
             expect(await loginPage.isLoginPageContentDisplayed()).toBeTruthy();
@@ -48,19 +47,19 @@ fdescribe('[LOGIN_PAGE]', () => {
             expect(await countriesModal.isCountriesModalDisplayed()).toBeTruthy();
         });
 
-        it('[LOGIN_PAGE] Value of "country" input field automatically changed to "France"', async() => {
+        it('[LOGIN_PAGE] List of countries is filtered', async() => {
             await countriesModal.fillCountriesModalSearchField('bel');
+            expect(await countriesModal.getCountriesListDisplayedValues()).toEqual(['Belarus', 'Belgium', 'Belize']);
         });
 
-        it('[LOGIN_PAGE] "Country code" input field is cleared', async() => {
-            await browser.sleep(9000);
-
-            await loginPage.clearCountryCodeInput();
-            expect(await loginPage.getCountryCodeInputValue()).toEqual('');
+        it('[LOGIN_PAGE] Selected country is shown in "country" input', async() => {
+            const countryName = 'Belgium';
+            await countriesModal.clickCountry(countryName);
+            expect(await loginPage.getCountryInputValue()).toEqual(countryName);
         });
 
-        it('[LOGIN_PAGE] Value of "country" input field automatically changed to "Unknown"', async() => {
-            expect(await loginPage.getCountryInputValue()).toEqual('Unknown');
+        it('[LOGIN_PAGE] Code is automatically changed and corresponds selected country', async() => {
+            expect(await loginPage.getCountryCodeInputValue()).toEqual('+32');
         });
     });
 });
