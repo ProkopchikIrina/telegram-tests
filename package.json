@@ -11,7 +11,6 @@
   "description": "",
   "dependencies": {
     "@types/jasmine": "2.8.16",
-    "jasmine-core": "2.99.1",
     "protractor": "5.4.2",
     "ts-node": "^8.3.0",
     "typescript": "3.4.5"
